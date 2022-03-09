@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # custom applications
 
     'applications.account',
+    'applications.food_time',
     'applications.forum',
 
 
