@@ -1,6 +1,13 @@
 from rest_framework import serializers
 
-from .models import Question, Answer
+from .models import Question, Answer, Like
+
+
+class LikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Like
+        fields = '__all__'
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -40,4 +47,6 @@ class AnswerSerializers(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep['question'] = instance.question.title
+        rep['like'] = instance.like.filter(like=True).count()
         return rep
+
