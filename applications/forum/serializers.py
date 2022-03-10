@@ -12,7 +12,6 @@ class QuestionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         requests = self.context.get('request')
         validated_data['author_id'] = requests.user.id
-        print(requests.user.id)
         question = Question.objects.create(**validated_data)
         return question
 
@@ -22,6 +21,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         rep['author'] = instance.author.email
         rep['solutions'] = AnswerSerializers(Answer.objects.filter(question=instance.id),
                                             many=True).data
+
         return rep
 
 

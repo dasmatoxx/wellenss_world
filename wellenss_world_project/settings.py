@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'applications.account',
     'applications.food_time',
     'applications.forum',
+    'applications.foods',
 
 
 ]

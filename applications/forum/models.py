@@ -26,7 +26,7 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answer')
 
     solution = models.TextField()
-    image = models.ImageField(upload_to='', blank=True)
+    image = models.ImageField(upload_to='', blank=True, null=False)
     public_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
