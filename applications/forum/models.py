@@ -12,7 +12,7 @@ class Question(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='question')
 
     title = models.TextField()
-    image = models.ImageField(upload_to='')
+    image = models.ImageField(upload_to='', blank=True)
     problem = models.TextField()
     public_date = models.DateTimeField(auto_now_add=True)
 
