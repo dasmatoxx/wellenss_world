@@ -33,3 +33,12 @@ class Answer(models.Model):
         return self.question.title
 
 
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name='like')
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE,
+                               related_name='like')
+    like = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.like
