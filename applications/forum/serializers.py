@@ -7,7 +7,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ('id', 'title', 'image', 'problem', 'public_date')
+        fields = ('id', 'category', 'title', 'image', 'problem', 'public_date')
 
     def create(self, validated_data):
         requests = self.context.get('request')
@@ -16,6 +16,11 @@ class QuestionSerializer(serializers.ModelSerializer):
         question = Question.objects.create(**validated_data)
         return question
 
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['category'] = instance.category.title
+        return rep
+
 
 class AnswerSerializers(serializers.ModelSerializer):
 
@@ -23,7 +28,7 @@ class AnswerSerializers(serializers.ModelSerializer):
         model = Answer
         fields = ('id', 'question', 'solution', 'image')
 
-    def     create(self, validated_data):
+    def create(self, validated_data):
         request = self.context.get('request')
         validated_data['author_id'] = request.user.id
         answer = Answer.objects.create(**validated_data)
@@ -33,4 +38,5 @@ class AnswerSerializers(serializers.ModelSerializer):
         rep = super().to_representation(instance)
         rep['author'] = instance.author.email
         rep['solutions'] = AnswerSerializers(Answer.objects.filter(questions=instance.id), many=True).data
+        rep['category'] = instance.category.title
         return rep

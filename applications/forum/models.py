@@ -1,11 +1,15 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from applications.food_time.models import Category
+
 User = get_user_model()
 
 
 class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='question')
+
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='question')
 
     title = models.TextField()
     image = models.ImageField(upload_to='')
