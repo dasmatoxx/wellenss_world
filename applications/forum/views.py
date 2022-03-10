@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Question
@@ -10,6 +11,7 @@ from .serializers import QuestionSerializer
 class QuestionListView(generics.ListAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    pagination_class = PageNumberPagination
 
 
 class QuestionCreateView(generics.CreateAPIView):
