@@ -2,9 +2,9 @@ from django.shortcuts import render
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Question
+from .models import Question, Answer
 from .permissions import IsQuestionAuthor
-from .serializers import QuestionSerializer
+from .serializers import QuestionSerializer, AnswerSerializers
 
 
 class QuestionListView(generics.ListAPIView):
@@ -34,7 +34,7 @@ class QuestionDeleteView(generics.DestroyAPIView):
 
 
 class AnswerViewSet(viewsets.ModelViewSet):
-    queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializers
     permission_classes = [IsAuthenticated, IsQuestionAuthor, ]
 

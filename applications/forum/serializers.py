@@ -19,6 +19,9 @@ class QuestionSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep['category'] = instance.category.title
+        rep['author'] = instance.author.email
+        rep['solutions'] = AnswerSerializers(Answer.objects.filter(question=instance.id),
+                                            many=True).data
         return rep
 
 
@@ -36,7 +39,5 @@ class AnswerSerializers(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep['author'] = instance.author.email
-        rep['solutions'] = AnswerSerializers(Answer.objects.filter(questions=instance.id), many=True).data
-        rep['category'] = instance.category.title
+        rep['question'] = instance.question.title
         return rep
