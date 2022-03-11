@@ -12,7 +12,7 @@ class Question(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='question')
 
     title = models.TextField()
-    image = models.ImageField(upload_to='', blank=True)
+    images = models.ImageField(upload_to='', blank=True, null=True)
     problem = models.TextField()
     public_date = models.DateTimeField(auto_now_add=True)
 
@@ -26,7 +26,7 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answer')
 
     solution = models.TextField()
-    image = models.ImageField(upload_to='', blank=True, null=False)
+    image = models.ImageField(upload_to='', blank=True, null=True)
     public_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

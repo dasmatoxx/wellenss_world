@@ -10,11 +10,17 @@ class LikeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class LikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Like
+        fields = '__all__'
+
 class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ('id', 'category', 'title', 'image', 'problem', 'public_date')
+        fields = ('id', 'category', 'title', 'images', 'problem', 'public_date')
 
     def create(self, validated_data):
         requests = self.context.get('request')
