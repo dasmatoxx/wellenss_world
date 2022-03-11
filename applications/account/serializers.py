@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
 
+from .models import Profile
 from .utils import send_activation_email
 
 User = get_user_model()
@@ -56,3 +57,10 @@ class LoginSerializer(serializers.Serializer):
 
         validated_data['user'] = user
         return validated_data
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
