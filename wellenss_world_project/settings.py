@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
     # modules
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
 
     # custom applications
 
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     'applications.food_time',
     'applications.forum',
     'applications.foods',
+    'applications.comments',
 
 
 ]

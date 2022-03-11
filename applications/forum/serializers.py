@@ -29,6 +29,11 @@ class QuestionSerializer(serializers.ModelSerializer):
         rep['solutions'] = AnswerSerializers(Answer.objects.filter(question=instance.id),
                                             many=True).data
 
+        total_rating = [i.rating for i in instance.review.all()]
+        if len(total_rating) != 0:
+            rep['total_rating'] = sum(total_rating) / len(total_rating)
+        else:
+            rep['total_rating'] = 0
         return rep
 
 

@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from .models import Food, FoodImage
+from ..comments.models import Comments
+from ..comments.serializers import CommentsSerializer
 
 
 class FoodImageSerializer(serializers.ModelSerializer):
@@ -33,7 +35,16 @@ class FoodSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
+        total_rating = [i.rating for i in instance.comment.all()]
+        if len(total_rating) != 0:
+            rep['total_rating'] = sum(total_rating) / len(total_rating)
+        else:
+            rep['total_rating'] = 0
         rep['images'] = FoodImageSerializer(FoodImage.objects.filter(foods=instance.id), many=True,
-                                               context=self.context).data
+                                            context=self.context).data
         rep['category'] = instance.category.title
+        rep['comment'] = CommentsSerializer(Comments.objects.filter(food=instance.id),
+                                            many=True).data
         return rep
+
+
