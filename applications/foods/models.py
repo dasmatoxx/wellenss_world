@@ -24,3 +24,4 @@ class FoodImage(models.Model):
         return self.foods.title
 
 
+
